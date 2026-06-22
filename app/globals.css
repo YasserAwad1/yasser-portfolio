@@ -1,26 +1,184 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Fonts (non-inline @theme → emits CSS vars + font-* utilities)
+   Geist / Geist Mono come from next/font (geist package);
+   Clash Display is loaded via Fontshare <link> in layout.
+   ============================================================ */
+@theme {
+  --font-sans: var(--font-geist-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* ============================================================
+   Design tokens — default (:root) is the DARK theme.
+   next-themes sets data-theme="light" | "dark" on <html>.
+   ============================================================ */
+:root,
+[data-theme="light"] {
+  --canvas: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #15171c;
+  --muted: #6a7180;
+  --line: #e4e6eb;
+  --accent: #4338ca;
+  --accent-soft: #eef0ff;
+  --code-bg: #14161d;
+  --code-key: #818cf8;
+  --code-str: #2dd4bf;
+  --code-dim: #6b7280;
+  --radius: 0.625rem;
+}
+
+[data-theme="dark"] {
+  --canvas: #0c0d11;
+  --surface: #15171d;
+  --ink: #f2f3f5;
+  --muted: #9aa0ab;
+  --line: #23262e;
+  --accent: #818cf8;
+  --accent-soft: #1c1e3a;
+  --code-bg: #0f1117;
+  --code-key: #a5b4fc;
+  --code-str: #5eead4;
+  --code-dim: #6b7280;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* ============================================================
+   Expose semantic tokens as Tailwind color utilities.
+   `inline` makes utilities reference the live var (theme-aware):
+   e.g. .bg-canvas { background-color: var(--canvas) }
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-foreground: var(--ink);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted);
+  --color-line: var(--line);
+  --color-border: var(--line);
+  --color-accent: var(--accent);
+  --color-primary: var(--accent);
+  --color-background: var(--canvas);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================================
+   Custom utilities (ported from the reference stylesheet)
+   ============================================================ */
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+@utility mono-eyebrow {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  font-size: 0.75rem;
+}
+
+@utility hairline {
+  border-top: 1px solid var(--line);
+}
+
+@utility drift-slow {
+  animation: 6s ease-in-out infinite ambient-drift;
+}
+
+@utility pulse-live {
+  animation: 1.6s ease-in-out infinite pulse-dot;
+}
+
+/* ============================================================
+   Keyframes
+   ============================================================ */
+@keyframes ambient-drift {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translateY(-4px);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   Base layer
+   ============================================================ */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* ~300ms theme color transition across the tree */
+  body,
+  body * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
