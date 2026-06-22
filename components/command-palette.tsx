@@ -229,7 +229,7 @@ export function CommandPalette() {
               </kbd>
             </div>
 
-            <div className="max-h-[50vh] overflow-y-auto py-2">
+            <div data-lenis-prevent className="max-h-[50vh] overflow-y-auto py-2">
               {filtered.length === 0 ? (
                 <p className="px-4 py-6 text-center font-mono text-xs text-muted-foreground">
                   No matches.
