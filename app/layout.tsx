@@ -10,23 +10,26 @@ import { CommandPalette } from "@/components/command-palette";
 const OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/85d52742-e4bd-4453-a3f7-f7518011dd47/id-preview-fa7dc4ca--0df56559-1f72-44e7-b333-9575411e3207.lovable.app-1782036966039.png";
 
+const TITLE = "Yasser Awad — Software Developer & Funnel Developer";
+const DESCRIPTION =
+  "Software developer · funnel developer · AI-assisted builder. From high-converting funnels and automations to web and mobile apps — built end to end, on a frontend and Flutter background. Based in Damascus, available worldwide.";
+const SHORT_DESCRIPTION =
+  "Software developer, funnel developer, and AI-assisted builder — funnels, automations, and web & mobile apps, built end to end.";
+
 export const metadata: Metadata = {
-  title: "Yasser Awad — Frontend Developer",
-  description:
-    "Frontend developer crafting fast, animated, pixel-tight web and mobile experiences. Based in Damascus, available worldwide.",
+  title: TITLE,
+  description: DESCRIPTION,
   authors: [{ name: "Yasser Awad" }],
   openGraph: {
     type: "website",
-    title: "Yasser Awad — Frontend Developer",
-    description:
-      "Frontend developer crafting fast, animated, pixel-tight web and mobile experiences.",
+    title: TITLE,
+    description: SHORT_DESCRIPTION,
     images: [OG_IMAGE],
   },
   twitter: {
     card: "summary",
-    title: "Yasser Awad — Frontend Developer",
-    description:
-      "Frontend developer crafting fast, animated, pixel-tight web and mobile experiences.",
+    title: TITLE,
+    description: SHORT_DESCRIPTION,
     images: [OG_IMAGE],
   },
 };

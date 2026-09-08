@@ -16,14 +16,27 @@ type Role = {
   tags: string[];
 };
 
+// The timeline axis spans Jan 2022 → now; positions are percentages of that
+// span, one month = 100 / 56.
 const ROLES: Role[] = [
+  {
+    company: "Dawrati",
+    role: "Funnel Developer",
+    dates: "Jul 2026 — Present",
+    live: true,
+    left: 96.42857142857143,
+    width: 3.5714285714285694,
+    blurb:
+      "Build and optimize sales funnels and automations while providing daily technical support, troubleshooting, and training sessions to clients. United Arab Emirates · Remote.",
+    tags: ["Funnels", "Automation", "CRM", "Technical Support", "Client Training"],
+  },
   {
     company: "TG Mena",
     role: "Project Manager",
     dates: "Apr 2024 — Present",
     live: true,
-    left: 50.943396226415096,
-    width: 49.056603773584904,
+    left: 48.214285714285715,
+    width: 51.785714285714285,
     blurb:
       "End-to-end project delivery — agile leadership of remote teams, client meetings, on-time shipping.",
     tags: ["Agile", "Jira"],
@@ -33,8 +46,8 @@ const ROLES: Role[] = [
     role: "Part-Time Flutter Developer",
     dates: "Jan 2026 — Present",
     live: true,
-    left: 90.56603773584906,
-    width: 9.433962264150944,
+    left: 85.71428571428571,
+    width: 14.285714285714292,
     blurb:
       "Building a Flutter SDK/package for a SaaS platform plus a scalable B2B app.",
     tags: ["Flutter", "SDK", "Dart"],
@@ -44,31 +57,39 @@ const ROLES: Role[] = [
     role: "Flutter Developer",
     dates: "Sep 2023 — Mar 2024",
     live: false,
-    left: 37.735849056603776,
-    width: 11.320754716981133,
+    left: 35.714285714285715,
+    width: 12.5,
     blurb: "Shipped Flutter apps with GetX, Firebase, and clean architecture.",
     tags: ["Flutter", "GetX", "Firebase"],
   },
   {
     company: "Independent",
     role: "Freelance Developer",
-    dates: "2022 — Present",
+    dates: "Jan 2022 — Present",
     live: true,
     left: 0,
     width: 100,
     blurb:
-      "Built and published cross-platform apps for clients on the App Store & Google Play.",
-    tags: ["Flutter", "Dart"],
+      "Web, funnel, and cross-platform work for clients — from landing pages and automations to apps published on the App Store & Google Play.",
+    tags: ["Next.js", "Flutter", "Funnels", "Automation"],
   },
 ];
 
 const YEARS = [
   { label: "2022", pos: 0 },
-  { label: "2023", pos: 22.641509433962266 },
-  { label: "2024", pos: 45.28301886792453 },
-  { label: "2025", pos: 67.9245283018868 },
-  { label: "2026", pos: 90.56603773584906 },
+  { label: "2023", pos: 21.428571428571427 },
+  { label: "2024", pos: 42.857142857142854 },
+  { label: "2025", pos: 64.28571428571429 },
+  { label: "2026", pos: 85.71428571428571 },
   { label: "NOW", pos: 100 },
+];
+
+const CLIENT_SESSIONS = [
+  "Use and configure their software systems",
+  "Troubleshoot technical issues",
+  "Understand workflows and automations",
+  "Solve implementation problems",
+  "Get the most out of the systems they run",
 ];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -86,8 +107,8 @@ export function Experience() {
         Parallel tracks, on purpose.
       </Reveal>
       <Reveal as="p" className="text-muted-foreground max-w-xl mb-12">
-        Several roles overlap — freelancing, full-time delivery, and a Flutter
-        SDK side track running in parallel.
+        Several roles overlap — funnel development, freelancing, full-time
+        delivery, and a Flutter SDK side track running in parallel.
       </Reveal>
 
       {/* Desktop timeline */}
@@ -250,6 +271,38 @@ export function Experience() {
           </Reveal>
         ))}
       </div>
+
+      {/* Client-facing technical work */}
+      <Reveal className="mt-10 rounded-2xl border border-line bg-surface p-6 md:p-8">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-10">
+          <div className="lg:col-span-5">
+            <p className="mono-eyebrow mb-3">{"// client-facing"}</p>
+            <h3 className="font-display text-2xl md:text-3xl text-ink leading-snug">
+              Two hours a day,{" "}
+              <span className="text-accent">live with clients.</span>
+            </h3>
+            <p className="mt-3 text-sm text-muted-foreground max-w-md">
+              I run daily 2-hour technical sessions — walking clients through
+              their systems, unblocking them in real time, and turning technical
+              detail into decisions they can act on.
+            </p>
+          </div>
+
+          <ul className="lg:col-span-7 grid sm:grid-cols-2 gap-x-6 gap-y-2.5 self-center">
+            {CLIENT_SESSIONS.map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-2.5 font-mono text-xs text-muted-foreground leading-relaxed"
+              >
+                <span className="text-accent mt-px shrink-0" aria-hidden="true">
+                  ▸
+                </span>
+                {line}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Reveal>
     </section>
   );
 }

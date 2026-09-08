@@ -21,19 +21,26 @@ const CODE: [string, Kind][] = [
   ["yasser ", "ident"],
   ["= {\n", "dim"],
   ["  roles: [", "ident"],
-  ['"Frontend Developer"', "str"],
+  ['"Software Developer"', "str"],
   [", ", "dim"],
-  ['"Mobile App Developer"', "str"],
+  ['"Funnel Developer"', "str"],
+  [", ", "dim"],
+  ['"AI-Assisted Builder"', "str"],
   ["],\n", "dim"],
   ["  builds: [", "ident"],
-  ['"web apps"', "str"],
+  ['"funnels"', "str"],
   [", ", "dim"],
-  ['"landing pages"', "str"],
+  ['"automations"', "str"],
   [", ", "dim"],
-  ['"mobile apps"', "str"],
+  ['"web + mobile apps"', "str"],
   ["],\n", "dim"],
-  ["  obsessed_with: ", "ident"],
-  ['"the last 10% of polish"', "str"],
+  ["  background: [", "ident"],
+  ['"Frontend"', "str"],
+  [", ", "dim"],
+  ['"Flutter"', "str"],
+  ["],\n", "dim"],
+  ["  ships: ", "ident"],
+  ['"complete systems, not single layers"', "str"],
   [",\n", "dim"],
   ["}", "dim"],
 ];
@@ -75,7 +82,7 @@ export function Hero() {
     }
     const id = setTimeout(
       () => setCount((c) => Math.min(TOTAL, c + 1)),
-      count === 0 ? 350 : 24,
+      count === 0 ? 350 : 19,
     );
     return () => clearTimeout(id);
   }, [reduce, phase, count]);
@@ -106,7 +113,7 @@ export function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        // frontend developer · damascus · available worldwide
+        // software developer · funnel developer · ai-assisted builder
       </motion.p>
 
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -153,19 +160,18 @@ export function Hero() {
             variants={item}
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[1.02] tracking-tight text-ink"
           >
-            I build interfaces
+            I build complete
             <br />
-            people actually
-            <br />
-            <span className="text-accent">enjoy using.</span>
+            <span className="text-accent">digital systems.</span>
           </motion.h1>
 
           <motion.p
             variants={item}
             className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl"
           >
-            Frontend developer crafting fast, animated, pixel-tight experiences —
-            shipped to the App Store, Google Play, and the open web.
+            From high-converting funnels and automated workflows to web and
+            mobile applications — I use modern development tools and AI-assisted
+            workflows to turn ideas into complete, production-ready systems.
           </motion.p>
 
           <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">

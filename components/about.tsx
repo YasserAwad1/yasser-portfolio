@@ -3,6 +3,20 @@ import { GraduationCap } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 
+const DOMAINS = [
+  "Web & Frontend",
+  "Flutter & Cross-Platform",
+  "Funnel Development",
+  "Sales Funnels & Automation",
+  "CRM & Workflow Automation",
+  "AI Integration",
+  "AI-Assisted Development",
+  "Vibe Coding",
+  "End-to-End Systems",
+  "Project Management",
+  "Client-Facing Technical Work",
+];
+
 export function About() {
   return (
     <section id="about" className="px-6 py-24 md:py-32 max-w-7xl mx-auto">
@@ -14,14 +28,26 @@ export function About() {
             <span className="text-accent">~</span> yasser whoami
           </div>
           <p className="font-display text-2xl md:text-3xl lg:text-4xl leading-snug text-ink">
-            I&apos;m a frontend developer who cares about how things{" "}
-            <em className="not-italic text-accent">feel</em>, not just how they
-            look. I turn designs into responsive, motion-rich interfaces — and
-            I&apos;ve shipped real products to thousands of users. I started in
-            cross-platform engineering and now spend most of my time in React,
-            Next.js, and Tailwind, building the front-of-house experiences
-            clients remember.
+            I&apos;m an Information Technology Engineer specialized in AI. I
+            started in cross-platform software development and expanded into
+            modern web development, funnel engineering, automation, and
+            AI-assisted development. Today I build{" "}
+            <em className="not-italic text-accent">complete systems</em> —
+            interfaces, backend logic, APIs, databases, automations, and
+            third-party integrations — rather than a single layer of the
+            product.
           </p>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {DOMAINS.map((domain) => (
+              <span
+                key={domain}
+                className="font-mono text-[11px] px-2.5 py-1 rounded border border-line text-muted-foreground"
+              >
+                {domain}
+              </span>
+            ))}
+          </div>
 
           <div className="mt-8 flex items-start gap-3">
             <GraduationCap
