@@ -24,7 +24,7 @@ export function Contact() {
 
         <Reveal delay={0.1} className="flex flex-col gap-3 items-start md:items-end">
           <a
-            href="mailto:yasser.awad1@hotmail.com"
+            href="mailto:y.awad1232002@gmail.com"
             className="inline-flex items-center justify-center rounded-full bg-accent text-white hover:opacity-90 transition-opacity px-8 py-4 font-mono text-sm w-fit"
           >
             Email me →

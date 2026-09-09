@@ -37,7 +37,7 @@ const SECTIONS = [
 ];
 
 const LINKS = [
-  { label: "Email", href: "mailto:yasser.awad1@hotmail.com", icon: <Mail size={15} /> },
+  { label: "Email", href: "mailto:y.awad1232002@gmail.com", icon: <Mail size={15} /> },
   { label: "WhatsApp", href: "https://wa.me/963948524047", icon: <MessageCircle size={15} /> },
   { label: "GitHub", href: "https://github.com/YasserAwad1", icon: <GithubIcon /> },
   {

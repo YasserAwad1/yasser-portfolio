@@ -49,8 +49,8 @@ type Channel = {
 const CHANNELS: Channel[] = [
   {
     label: "email",
-    value: "yasser.awad1@hotmail.com",
-    href: "mailto:yasser.awad1@hotmail.com",
+    value: "y.awad1232002@gmail.com",
+    href: "mailto:y.awad1232002@gmail.com",
     icon: <Mail size={16} />,
     copy: true,
   },
