@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ============================================================
    Fonts (non-inline @theme → emits CSS vars + font-* utilities)
    Geist / Geist Mono come from next/font (geist package);
@@ -22,6 +24,7 @@
   --muted: #6a7180;
   --line: #e4e6eb;
   --accent: #4338ca;
+  --accent-2: #0d9488;
   --accent-soft: #eef0ff;
   --code-bg: #14161d;
   --code-key: #818cf8;
@@ -31,12 +34,13 @@
 }
 
 [data-theme="dark"] {
-  --canvas: #0c0d11;
-  --surface: #15171d;
+  --canvas: #090a10;
+  --surface: #12141c;
   --ink: #f2f3f5;
   --muted: #9aa0ab;
-  --line: #23262e;
+  --line: #262a36;
   --accent: #818cf8;
+  --accent-2: #2dd4bf;
   --accent-soft: #1c1e3a;
   --code-bg: #0f1117;
   --code-key: #a5b4fc;
@@ -63,6 +67,7 @@
   --color-line: var(--line);
   --color-border: var(--line);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-primary: var(--accent);
   --color-background: var(--canvas);
 }
@@ -180,5 +185,122 @@
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================================
+   Visual layer additions: grid texture, marquee, glows, print
+   ============================================================ */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility marquee {
+  animation: 36s linear infinite marquee-scroll;
+}
+
+@utility card-glow {
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--ink) 4%, transparent),
+    0 24px 60px -28px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+/* ============================================================
+   Motion + colour pass: aurora, glass, spotlight, gradient text
+   ============================================================ */
+@utility glass {
+  background-color: color-mix(in oklab, var(--surface) 74%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-color: color-mix(in oklab, var(--ink) 9%, transparent);
+}
+
+/* Mouse-tracking highlight; --mx/--my are set by the card's pointermove. */
+@utility spotlight {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      380px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in oklab, var(--accent) 16%, transparent),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+@utility gradient-text {
+  background-image: linear-gradient(
+    95deg,
+    var(--accent) 0%,
+    var(--accent-2) 50%,
+    var(--accent) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: 7s ease-in-out infinite gradient-shift;
+}
+
+@utility aurora-blob {
+  animation: 26s ease-in-out infinite aurora-drift;
+  will-change: transform;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6vw, -4vh, 0) scale(1.12);
+  }
+  66% {
+    transform: translate3d(-4vw, 5vh, 0) scale(0.94);
   }
 }

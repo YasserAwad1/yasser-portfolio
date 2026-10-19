@@ -11,6 +11,7 @@ const LINKS = [
   { href: "#stack", label: "stack" },
   { href: "#experience", label: "experience" },
   { href: "#contact", label: "contact" },
+  { href: "/cv", label: "cv" },
 ];
 
 export function Nav() {

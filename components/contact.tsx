@@ -1,45 +1,63 @@
+import { FileText } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { ContactStatus, ContactChannels } from "@/components/contact-extras";
+import { PROFILE } from "@/lib/profile";
 
 export function Contact() {
   return (
-    <section id="contact" className="px-6 py-24 md:py-36 max-w-7xl mx-auto">
-      <SectionEyebrow className="mb-6">// 05 — contact</SectionEyebrow>
-      <Reveal
-        as="h2"
-        blur
-        className="font-display text-4xl sm:text-5xl md:text-6xl text-ink max-w-3xl leading-tight"
-      >
-        Have something that needs building?{" "}
-        <span className="text-accent">Let&apos;s talk.</span>
-      </Reveal>
-
-      <Reveal className="mt-6" delay={0.1}>
-        <ContactStatus />
-      </Reveal>
-
-      <div className="mt-12 grid md:grid-cols-[1fr_auto] gap-10 items-end">
-        <ContactChannels />
-
-        <Reveal delay={0.1} className="flex flex-col gap-3 items-start md:items-end">
-          <a
-            href="mailto:y.awad1232002@gmail.com"
-            className="inline-flex items-center justify-center rounded-full bg-accent text-white hover:opacity-90 transition-opacity px-8 py-4 font-mono text-sm w-fit"
-          >
-            Email me →
-          </a>
-          <a
-            href="https://wa.me/963948524047"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Message me on WhatsApp"
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface text-ink hover:border-ink transition-colors px-8 py-4 font-mono text-sm w-fit"
-          >
-            <WhatsAppIcon className="text-[#25D366]" />
-            WhatsApp
-          </a>
+    <section id="contact" className="relative isolate">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[480px] bg-[radial-gradient(60%_70%_at_50%_100%,var(--accent-soft),transparent_70%)] opacity-80"
+      />
+      <div className="px-6 py-24 md:py-36 max-w-7xl mx-auto">
+        <SectionEyebrow className="mb-6">{"// 05 — contact"}</SectionEyebrow>
+        <Reveal
+          as="h2"
+          blur
+          className="font-display text-4xl sm:text-5xl md:text-6xl text-ink max-w-3xl leading-tight"
+        >
+          Have something that needs building?{" "}
+          <span className="text-accent">Let&apos;s talk.</span>
         </Reveal>
+
+        <Reveal className="mt-6 flex flex-wrap items-center gap-3" delay={0.1}>
+          <ContactStatus />
+          <span className="font-mono text-xs text-muted-foreground">
+            open to full-time, contract, and freelance · remote worldwide
+          </span>
+        </Reveal>
+
+        <div className="mt-12 grid md:grid-cols-[1fr_auto] gap-10 items-end">
+          <ContactChannels />
+
+          <Reveal delay={0.1} className="flex flex-col gap-3 items-start md:items-end">
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="inline-flex items-center justify-center rounded-full bg-accent text-white hover:opacity-90 transition-opacity px-8 py-4 font-mono text-sm w-fit shadow-lg shadow-accent/25"
+            >
+              Email me →
+            </a>
+            <a
+              href={PROFILE.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Message me on WhatsApp"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface text-ink hover:border-ink transition-colors px-8 py-4 font-mono text-sm w-fit"
+            >
+              <WhatsAppIcon className="text-[#25D366]" />
+              WhatsApp
+            </a>
+            <a
+              href={PROFILE.cv}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface text-ink hover:border-ink transition-colors px-8 py-4 font-mono text-sm w-fit"
+            >
+              <FileText size={16} aria-hidden="true" />
+              View CV / résumé
+            </a>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

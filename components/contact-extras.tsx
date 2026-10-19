@@ -30,7 +30,7 @@ export function ContactStatus() {
       </span>
       Available for new work
       {time && (
-        <span className="text-ink/70" suppressHydrationWarning>
+        <span className="hidden sm:inline text-ink/70" suppressHydrationWarning>
           · {time} in Damascus
         </span>
       )}

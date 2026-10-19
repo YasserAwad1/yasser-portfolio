@@ -1,101 +1,200 @@
 "use client";
 
-import {
-  motion,
-  useReducedMotion,
-  useSpring,
-} from "framer-motion";
+import { motion, useReducedMotion, useSpring } from "framer-motion";
 import Image from "next/image";
 import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { Reveal } from "@/components/reveal";
 import { SectionEyebrow } from "@/components/section-eyebrow";
+import { AppleIcon, GooglePlayIcon, GithubIcon } from "@/components/icons";
+import { PROFILE } from "@/lib/profile";
+
+type StoreLink = { kind: "appstore" | "googleplay"; href: string };
+
+/**
+ * Case-study shape. Hiring managers read portfolios for the problem, what
+ * was actually built, the outcome, and the decisions behind it — not just a
+ * screenshot and a tag list.
+ */
+type Project = {
+  name: string;
+  kind: string;
+  role: string;
+  summary: string;
+  problem: string;
+  built: string;
+  outcome: string;
+  decisions: string[];
+  tags: string[];
+  href?: string;
+  repo?: string;
+  stores?: StoreLink[];
+};
+
+const DR_DIET: Project = {
+  name: "Dr. Diet",
+  kind: "Web · Landing page",
+  role: "Design to code · frontend",
+  summary: "Conversion-focused landing page for a nutrition brand.",
+  problem:
+    "A nutrition brand needed a page that turns visitors into consultation requests — fast, mobile-first, and clearly on-brand.",
+  built:
+    "A single-page Next.js site with a clear offer hierarchy, scroll-driven motion, and CTAs placed around the offer rather than the layout.",
+  outcome:
+    "Shipped and live on Vercel: a lightweight page the brand can point campaigns at.",
+  decisions: [
+    "Static-first Next.js for speed and simple hosting",
+    "Framer Motion limited to purposeful, scroll-triggered reveals",
+    "Mobile layout designed first, desktop expanded from it",
+  ],
+  tags: ["Next.js", "Tailwind", "Framer Motion"],
+  href: "https://drdiet.vercel.app/",
+};
+
+const MOMENTA: Project = {
+  name: "Momenta",
+  kind: "Web & Mobile · Platform",
+  role: "Full build · web + mobile",
+  summary: "Premium event-memory platform for weddings and luxury occasions.",
+  problem:
+    "Hosts of weddings and luxury events wanted one place to collect, relive, and share the memories of the day — in Arabic, on web and on phones.",
+  built:
+    "The web platform and the mobile experience: landing, event pages, guest flows, and a fully right-to-left Arabic interface with a premium visual language.",
+  outcome:
+    "Live at momentaapp.com across web and mobile — an Arabic-first product built for a high-ticket audience.",
+  decisions: [
+    "RTL-first layout system instead of mirroring an LTR design",
+    "Shared design tokens across the web and mobile surfaces",
+    "Imagery and motion tuned for a premium, luxury feel",
+  ],
+  tags: ["Next.js", "Tailwind", "RTL Arabic"],
+  href: "https://momentaapp.com/",
+};
+
+const ARHEBO: Project = {
+  name: "Arhebo",
+  kind: "Mobile · Cross-platform",
+  role: "Flutter developer",
+  summary: "Event invitations and RSVP experience.",
+  problem:
+    "Event hosts needed digital invitations that guests can open, respond to, and keep — without printing or chasing RSVPs by hand.",
+  built:
+    "A cross-platform Flutter app covering invitation creation, delivery, and RSVP tracking from one codebase.",
+  outcome: "One Dart codebase shipped to both iOS and Android.",
+  decisions: [
+    "Flutter for a single codebase across both platforms",
+    "Reusable widget structure for fast iteration on screens",
+  ],
+  tags: ["Flutter", "Dart"],
+};
+
+const TODDILY: Project = {
+  name: "Toddily",
+  kind: "Mobile · Cross-platform",
+  role: "Flutter developer · store release",
+  summary: "Preschool management app — live on the App Store and Google Play.",
+  problem:
+    "Preschools needed one app to run day-to-day operations and keep parents in the loop, on whatever phone families already own.",
+  built:
+    "A Flutter + Firebase app for staff and parents, taken through store review and published on both platforms.",
+  outcome: "Live on the App Store and Google Play.",
+  decisions: [
+    "Firebase for auth and realtime sync without a custom backend",
+    "Separate flows for staff and parents from the same codebase",
+    "Store compliance and releases handled end to end",
+  ],
+  tags: ["Flutter", "Firebase"],
+  stores: [
+    {
+      kind: "appstore",
+      href: "https://apps.apple.com/us/app/toddily/id6468933836",
+    },
+    {
+      kind: "googleplay",
+      href: "https://play.google.com/store/apps/details?id=com.toddilypre.toddilyPreschool",
+    },
+  ],
+};
 
 export function Work() {
   return (
-    <section id="work" className="px-6 py-24 md:py-32 max-w-7xl mx-auto">
-      <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
-        <div>
-          <SectionEyebrow className="mb-3">// 02 — selected work</SectionEyebrow>
-          <Reveal as="h2" blur className="font-display text-4xl md:text-5xl text-ink">
-            A curated showcase.
+    <section id="work" className="relative isolate">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[520px] bg-[radial-gradient(60%_60%_at_50%_0%,var(--accent-soft),transparent_70%)] opacity-70"
+      />
+      <div className="px-6 py-24 md:py-32 max-w-7xl mx-auto">
+        <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+          <div>
+            <SectionEyebrow className="mb-3">{"// 02 — selected work"}</SectionEyebrow>
+            <Reveal as="h2" blur className="font-display text-4xl md:text-5xl text-ink">
+              Fewer projects, deeper write-ups.
+            </Reveal>
+            <Reveal as="p" delay={0.05} className="mt-3 text-muted-foreground max-w-xl">
+              Each one as a short case study: the problem, what I built, what
+              came out of it, and the decisions behind it.
+            </Reveal>
+          </div>
+          <Reveal as="p" className="font-mono text-xs text-muted-foreground">
+            2022 — 2026
           </Reveal>
         </div>
-        <Reveal as="p" className="font-mono text-xs text-muted-foreground">
-          2022 — 2026
-        </Reveal>
-      </div>
 
-      <div className="grid lg:grid-cols-6 gap-6">
-        {/* Dr. Diet — web landing, full width */}
-        <TiltCard span="lg:col-span-6" delay={0}>
-          <BrowserMock
-            image="/work/drdiet.png"
-            url="drdiet.vercel.app"
-            alt="Dr. Diet landing page"
-            heightClass="h-64 sm:h-80"
-          />
-          <CardFooter
-            name="Dr. Diet"
-            kind="Frontend · Web"
-            blurb="Conversion-focused landing page for a nutrition brand."
-            tags={["Next.js", "Tailwind", "Framer Motion"]}
-            href="https://drdiet.vercel.app/"
-          />
-        </TiltCard>
-
-        {/* Momenta — special: landing page + mobile mockup, full width */}
-        <TiltCard span="lg:col-span-6" delay={0.05}>
-          <div className="grid md:grid-cols-[1.6fr_1fr] gap-6 items-center">
+        <div className="grid lg:grid-cols-6 gap-6">
+          {/* Dr. Diet — web landing, full width */}
+          <TiltCard span="lg:col-span-6" delay={0}>
             <BrowserMock
-              image="/work/momenta-web.png"
-              url="momentaapp.com"
-              alt="Momenta web app"
+              image="/work/drdiet.png"
+              url="drdiet.vercel.app"
+              alt="Dr. Diet landing page"
               heightClass="h-64 sm:h-80"
             />
-            <div className="flex justify-center">
-              <PhoneMock image="/work/momenta-mobile.png" alt="Momenta on mobile" />
+            <CaseStudy project={DR_DIET} />
+          </TiltCard>
+
+          {/* Momenta — special: landing page + mobile mockup, full width */}
+          <TiltCard span="lg:col-span-6" delay={0.05}>
+            <div className="grid md:grid-cols-[1.6fr_1fr] gap-6 items-center">
+              <BrowserMock
+                image="/work/momenta-web.png"
+                url="momentaapp.com"
+                alt="Momenta web app"
+                heightClass="h-64 sm:h-80"
+              />
+              <div className="flex justify-center">
+                <PhoneMock image="/work/momenta-mobile.png" alt="Momenta on mobile" />
+              </div>
             </div>
-          </div>
-          <CardFooter
-            name="Momenta"
-            kind="Frontend · Web & Mobile"
-            blurb="Premium event-memory platform for weddings and luxury occasions."
-            tags={["Next.js", "Tailwind", "RTL Arabic"]}
-            href="https://momentaapp.com/"
-          />
-        </TiltCard>
+            <CaseStudy project={MOMENTA} />
+          </TiltCard>
 
-        {/* Arhebo — mobile (Flutter) */}
-        <TiltCard span="lg:col-span-3" delay={0.1}>
-          <PhoneMock image="/work/arhebo.png" alt="Arhebo mobile app" />
-          <CardFooter
-            name="Arhebo"
-            kind="Mobile · Cross-platform"
-            blurb="Event invitations and RSVP experience."
-            tags={["Flutter", "Dart"]}
-          />
-        </TiltCard>
+          {/* Arhebo — mobile (Flutter) */}
+          <TiltCard span="lg:col-span-3" delay={0.1}>
+            <PhoneMock image="/work/arhebo.png" alt="Arhebo mobile app" />
+            <CaseStudy project={ARHEBO} compact />
+          </TiltCard>
 
-        {/* Toddily — mobile (Flutter) */}
-        <TiltCard span="lg:col-span-3" delay={0.15}>
-          <PhoneMock image="/work/toddily.png" alt="Toddily mobile app" />
-          <CardFooter
-            name="Toddily"
-            kind="Mobile · Cross-platform"
-            blurb="Preschool management app — live on the App Store and Google Play."
-            tags={["Flutter", "Firebase"]}
-            stores={[
-              {
-                kind: "appstore",
-                href: "https://apps.apple.com/us/app/toddily/id6468933836",
-              },
-              {
-                kind: "googleplay",
-                href: "https://play.google.com/store/apps/details?id=com.toddilypre.toddilyPreschool",
-              },
-            ]}
-          />
-        </TiltCard>
+          {/* Toddily — mobile (Flutter) */}
+          <TiltCard span="lg:col-span-3" delay={0.15}>
+            <PhoneMock image="/work/toddily.png" alt="Toddily mobile app" />
+            <CaseStudy project={TODDILY} compact />
+          </TiltCard>
+        </div>
+
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-dashed border-line px-6 py-5">
+          <p className="font-mono text-xs text-muted-foreground">
+            More code, commits, and experiments live on GitHub.
+          </p>
+          <a
+            href={PROFILE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-mono text-xs px-4 py-2 rounded-full border border-line bg-surface text-ink hover:border-ink hover:text-accent transition-colors"
+          >
+            <GithubIcon size={14} />
+            github.com/{PROFILE.githubHandle}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </Reveal>
       </div>
     </section>
   );
@@ -119,8 +218,10 @@ function TiltCard({
     const r = e.currentTarget.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
     const py = (e.clientY - r.top) / r.height - 0.5;
-    ry.set(px * 8);
-    rx.set(-py * 8);
+    ry.set(px * 5);
+    rx.set(-py * 5);
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
   };
 
   const reset = () => {
@@ -136,96 +237,130 @@ function TiltCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay }}
-      style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
-      className={`group relative bg-surface border border-line rounded-2xl p-5 sm:p-7 ${span}`}
+      style={{ rotateX: rx, rotateY: ry, transformPerspective: 1200 }}
+      className={`group relative glass spotlight border rounded-2xl p-5 sm:p-7 card-glow hover:border-accent/40 transition-colors ${span}`}
     >
       {children}
     </motion.article>
   );
 }
 
-type StoreLink = { kind: "appstore" | "googleplay"; href: string };
+/** Problem → built → outcome, plus key decisions and links. */
+function CaseStudy({ project, compact = false }: { project: Project; compact?: boolean }) {
+  const p = project;
+  const blocks: [string, string][] = [
+    ["the problem", p.problem],
+    ["what I built", p.built],
+    ["outcome", p.outcome],
+  ];
 
-function CardFooter({
-  name,
-  kind,
-  blurb,
-  tags,
-  href,
-  stores,
-}: {
-  name: string;
-  kind: string;
-  blurb: string;
-  tags: string[];
-  href?: string;
-  stores?: StoreLink[];
-}) {
-  const external = !!href && href !== "#";
   return (
-    <div className="mt-6">
-      <div className="flex items-baseline justify-between gap-4 flex-wrap">
-        <h3 className="font-display text-2xl md:text-3xl text-ink">{name}</h3>
-        <span className="font-mono text-[11px] text-muted-foreground">{kind}</span>
-      </div>
-      <p className="mt-2 text-muted-foreground">{blurb}</p>
-      <div className="mt-4 flex flex-wrap gap-2">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="font-mono text-[11px] px-2.5 py-1 rounded border border-line text-ink"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {stores ? (
-        <div className="mt-5 flex flex-wrap gap-2">
-          {stores.map((store) => (
-            <a
-              key={store.kind}
-              href={store.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-[11px] px-3 py-1.5 rounded-full border border-line text-ink hover:border-ink hover:text-accent transition-colors"
+    <div className={`mt-6 ${compact ? "" : "grid lg:grid-cols-12 gap-8"}`}>
+      {/* Identity + links */}
+      <div className={compact ? "" : "lg:col-span-4"}>
+        <div className="flex items-baseline justify-between gap-4 flex-wrap">
+          <h3 className="font-display text-2xl md:text-3xl text-ink">{p.name}</h3>
+          <span className="font-mono text-[11px] text-muted-foreground">{p.kind}</span>
+        </div>
+        <p className="mt-1 font-mono text-[11px] text-accent">{p.role}</p>
+        <p className="mt-2 text-muted-foreground">{p.summary}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {p.tags.map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-[11px] px-2.5 py-1 rounded border border-line text-ink"
             >
-              {store.kind === "appstore" ? (
-                <AppleIcon className="w-3.5 h-3.5" />
-              ) : (
-                <GooglePlayIcon className="w-3.5 h-3.5" />
-              )}
-              {store.kind === "appstore" ? "App Store" : "Google Play"}
-            </a>
+              {tag}
+            </span>
           ))}
         </div>
-      ) : external ? (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs text-ink relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-accent after:transition-all group-hover:after:w-full group-hover:text-accent"
+        <Links project={p} />
+      </div>
+
+      {/* Case study */}
+      <div className={compact ? "mt-6" : "lg:col-span-8"}>
+        <dl
+          className={`grid gap-5 ${
+            compact ? "grid-cols-1" : "sm:grid-cols-3"
+          }`}
         >
-          Visit live site <span aria-hidden="true">↗</span>
-        </a>
-      ) : null}
+          {blocks.map(([label, text]) => (
+            <div
+              key={label}
+              className={`${
+                compact ? "border-l border-line pl-4" : "border-t border-line pt-4"
+              }`}
+            >
+              <dt className="mono-eyebrow mb-1.5">{label}</dt>
+              <dd className="text-sm text-ink/90 leading-relaxed">{text}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-5">
+          <p className="mono-eyebrow mb-2">key decisions</p>
+          <ul
+            className={`grid gap-x-6 gap-y-1.5 ${
+              compact ? "grid-cols-1" : "sm:grid-cols-2"
+            }`}
+          >
+            {p.decisions.map((d) => (
+              <li
+                key={d}
+                className="flex items-start gap-2 font-mono text-xs text-muted-foreground leading-relaxed"
+              >
+                <span className="text-accent shrink-0" aria-hidden="true">
+                  ▸
+                </span>
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
 
-function AppleIcon({ className }: { className?: string }) {
+function Links({ project: p }: { project: Project }) {
+  const live = !!p.href && p.href !== "#";
+  if (!live && !p.repo && !p.stores) return null;
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-    </svg>
-  );
-}
-
-function GooglePlayIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-      <path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z" />
-    </svg>
+    <div className="mt-5 flex flex-wrap gap-2">
+      {live && (
+        <a
+          href={p.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] px-3 py-1.5 rounded-full bg-accent text-white hover:opacity-90 transition-opacity"
+        >
+          Visit live site <span aria-hidden="true">↗</span>
+        </a>
+      )}
+      {p.stores?.map((store) => (
+        <a
+          key={store.kind}
+          href={store.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-mono text-[11px] px-3 py-1.5 rounded-full border border-line text-ink hover:border-ink hover:text-accent transition-colors"
+        >
+          {store.kind === "appstore" ? <AppleIcon /> : <GooglePlayIcon />}
+          {store.kind === "appstore" ? "App Store" : "Google Play"}
+        </a>
+      ))}
+      {p.repo && (
+        <a
+          href={p.repo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-mono text-[11px] px-3 py-1.5 rounded-full border border-line text-ink hover:border-ink hover:text-accent transition-colors"
+        >
+          <GithubIcon size={13} />
+          Source
+        </a>
+      )}
+    </div>
   );
 }
 

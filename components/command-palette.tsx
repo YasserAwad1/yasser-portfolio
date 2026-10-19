@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import {
   ArrowRight,
+  FileText,
   Mail,
   MessageCircle,
   Moon,
@@ -37,6 +38,7 @@ const SECTIONS = [
 ];
 
 const LINKS = [
+  { label: "CV / Résumé", href: "/cv", icon: <FileText size={15} /> },
   { label: "Email", href: "mailto:y.awad1232002@gmail.com", icon: <Mail size={15} /> },
   { label: "WhatsApp", href: "https://wa.me/963948524047", icon: <MessageCircle size={15} /> },
   { label: "GitHub", href: "https://github.com/YasserAwad1", icon: <GithubIcon /> },
